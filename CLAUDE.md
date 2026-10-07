@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-There's no application code yet. The repo holds only `PRD.md` (written in Vietnamese), `.gitignore` and the custom slash commands in `.claude/commands/`. `PRD.md` is the source of truth for requirements. Its section 4 table tracks feature status (F1–F5). When you finish a feature, change its `[ ] Chưa làm` marker in that table.
+Only F1 (add course) is implemented so far; see PRD §4 for status. Code is in `src/` (pure logic in `src/validation.js`), tests in `tests/`. `PRD.md` is the source of truth for requirements; its section 4 table tracks feature status (F1–F5). When you finish a feature, change its `[ ] Chưa làm` marker in that table.
 
 ## Process (Waterfall)
 
@@ -25,7 +25,7 @@ Phases run in order, and each phase needs the PM's sign-off before the next one 
 - Vitest for unit tests.
 - Deployed to Vercel with a public URL.
 
-When scaffolding, use the standard npm scripts (`dev`, `build`, `preview`, `test`) and update this section with the real commands. That includes how to run a single test, e.g. `npx vitest run path/to/file.test.js -t "name"`.
+Commands: `npm run dev`, `npm run build`, `npm run preview`, `npm test` (Vitest, runs once). Single test: `npx vitest run tests/validation.test.js -t "name"`.
 
 ## Domain rules that are easy to get wrong
 

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPA Tracker</title>
+  </head>
+  <body>
+    <main>
+      <h1>GPA Tracker</h1>
+
+      <form id="course-form" novalidate>
+        <div class="field">
+          <label for="name">Tên môn</label>
+          <input id="name" name="name" type="text" autocomplete="off" aria-describedby="name-error" />
+          <p class="error" id="name-error" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="credits">Số tín chỉ</label>
+          <input id="credits" name="credits" type="text" inputmode="numeric" autocomplete="off" aria-describedby="credits-error" />
+          <p class="error" id="credits-error" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="score">Điểm hệ 10</label>
+          <input id="score" name="score" type="text" inputmode="decimal" autocomplete="off" aria-describedby="score-error" />
+          <p class="error" id="score-error" role="alert"></p>
+        </div>
+        <button type="submit">Thêm môn</button>
+      </form>
+
+      <section>
+        <h2>Danh sách môn học</h2>
+        <p id="empty-hint">Hãy thêm môn học đầu tiên</p>
+        <table>
+          <thead>
+            <tr><th>Tên môn</th><th>Tín chỉ</th><th>Điểm hệ 10</th></tr>
+          </thead>
+          <tbody id="course-rows"></tbody>
+        </table>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

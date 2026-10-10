@@ -8,8 +8,8 @@ _Cập nhật lần cuối: 2026-10-10_
 |-----------|-----------|
 | 1. Yêu cầu (PRD) | Xong |
 | 2. Thiết kế luồng nghiệp vụ | Xong (44 tình huống đặc biệt); 7 điểm còn mở bên dưới chưa được PM chốt chính thức |
-| 3. Lập trình và test tự động | **Đang làm**: F1–F5 xong; chờ PM duyệt F5 rồi sang giai đoạn 4 |
-| 4. Kiểm thử giao diện (E2E) | Chưa bắt đầu |
+| 3. Lập trình và test tự động | Xong (F1–F5, 94 test đạt, đã merge vào `main`) |
+| 4. Kiểm thử giao diện (E2E) | **Đang làm**: đã viết 88 test case ở `docs/test-cases.md`, chờ PM test và điền kết quả |
 | 5. Triển khai Vercel | Chưa bắt đầu |
 
 | Chức năng | Trạng thái |
@@ -20,7 +20,7 @@ _Cập nhật lần cuối: 2026-10-10_
 | F4 Sửa/xoá môn | Xong, đã merge vào `main` |
 | F5 Lưu dữ liệu | Xong code + test (94 test đạt), nằm ở nhánh `feature/f5-save-data`, chờ PM xem giao diện |
 
-**Việc tiếp theo:** PM xem F5 trên giao diện (`npm run dev`), duyệt rồi merge; sau đó viết test case E2E (`docs/test-cases.md`).
+**Việc tiếp theo:** PM test theo `docs/test-cases.md`, điền cột "Kết quả thực tế"; có lỗi thì báo để sửa. Xong thì sang giai đoạn 5 (Vercel).
 
 ## Quyết định đã chốt
 

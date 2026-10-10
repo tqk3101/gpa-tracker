@@ -1,5 +1,5 @@
 import './style.css';
-import { validateCourse, convertScore, calculateGpa } from './validation.js';
+import { validateCourse, convertScore, calculateGpa, updateCourse, removeCourse } from './validation.js';
 
 const FIELDS = ['name', 'credits', 'score'];
 const form = document.getElementById('course-form');
@@ -13,12 +13,56 @@ const stat = Object.fromEntries(
 );
 const summaryHint = document.getElementById("summary-hint");
 
-const courses = [];
+const submitBtn = document.getElementById("submit-btn");
+const cancelBtn = document.getElementById("cancel-btn");
+
+let courses = [];
 let nextId = 1;
+let editingId = null;
 
 function setError(field, message) {
   errorEls[field].textContent = message ?? '';
   inputs[field].toggleAttribute('aria-invalid', Boolean(message));
+}
+
+function clearErrors() {
+  for (const f of FIELDS) setError(f);
+}
+
+function exitEditMode() {
+  editingId = null;
+  form.reset();
+  clearErrors();
+  submitBtn.textContent = "Thêm môn";
+  cancelBtn.hidden = true;
+}
+
+function startEdit(course) {
+  editingId = course.id;
+  clearErrors();
+  inputs.name.value = course.name;
+  inputs.credits.value = course.credits;
+  inputs.score.value = String(course.score).replace(".", ",");
+  submitBtn.textContent = "Lưu";
+  cancelBtn.hidden = false;
+  render();
+  inputs.name.focus();
+}
+
+function deleteCourse(course) {
+  if (!window.confirm(`Xoá môn "${course.name}"?`)) return;
+  if (course.id === editingId) exitEditMode();
+  courses = removeCourse(courses, course.id);
+  render();
+}
+
+function actionButton(label, className, onClick) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.textContent = label;
+  if (className) b.className = className;
+  b.addEventListener("click", onClick);
+  return b;
 }
 
 function renderSummary() {
@@ -46,6 +90,10 @@ function render() {
         td.textContent = text;
         tr.append(td);
       }
+      if (c.id === editingId) tr.className = "editing";
+      const actions = document.createElement("td");
+      actions.append(actionButton("Sửa", "", () => startEdit(c)), actionButton("Xoá", "danger", () => deleteCourse(c)));
+      tr.append(actions);
       return tr;
     }),
   );
@@ -64,10 +112,20 @@ form.addEventListener('submit', (event) => {
     inputs[FIELDS.find((f) => result.errors[f])].focus();
     return;
   }
-  courses.push({ id: nextId++, ...result.values });
+  if (editingId !== null) {
+    courses = updateCourse(courses, editingId, result.values);
+    exitEditMode();
+  } else {
+    courses.push({ id: nextId++, ...result.values });
+    form.reset();
+  }
   render();
-  form.reset();
   inputs.name.focus();
+});
+
+cancelBtn.addEventListener("click", () => {
+  exitEditMode();
+  render();
 });
 
 for (const f of FIELDS) inputs[f].addEventListener('input', () => setError(f));

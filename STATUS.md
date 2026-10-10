@@ -8,7 +8,7 @@ _Cập nhật lần cuối: 2026-10-10_
 |-----------|-----------|
 | 1. Yêu cầu (PRD) | Xong |
 | 2. Thiết kế luồng nghiệp vụ | Xong (44 tình huống đặc biệt); 7 điểm còn mở bên dưới chưa được PM chốt chính thức |
-| 3. Lập trình và test tự động | **Đang làm**: F1, F2, F3 xong; còn F4, F5 |
+| 3. Lập trình và test tự động | **Đang làm**: F1–F4 xong; còn F5 |
 | 4. Kiểm thử giao diện (E2E) | Chưa bắt đầu |
 | 5. Triển khai Vercel | Chưa bắt đầu |
 
@@ -16,11 +16,11 @@ _Cập nhật lần cuối: 2026-10-10_
 |-----------|-----------|
 | F1 Thêm môn học | Xong, đã merge vào `main` |
 | F2 Quy đổi điểm | Xong, đã merge vào `main` |
-| F3 Tính GPA | Xong code + test (74 test đạt), nằm ở nhánh `feature/f3-calculate-gpa`, chờ PM xem giao diện |
-| F4 Sửa/xoá môn | Chưa làm |
+| F3 Tính GPA | Xong, đã merge vào `main` |
+| F4 Sửa/xoá môn | Xong code + test (79 test đạt), nằm ở nhánh `feature/f4-edit-delete-course`, chờ PM xem giao diện |
 | F5 Lưu dữ liệu | Chưa làm |
 
-**Việc tiếp theo:** PM xem F3 trên giao diện (`npm run dev`), duyệt rồi merge; sau đó làm F4. Nên chốt các điểm còn mở trước khi làm F4 và F5.
+**Việc tiếp theo:** PM xem F4 trên giao diện (`npm run dev`), duyệt rồi merge; sau đó làm F5. Nên chốt các điểm #3, #6, #7 trước khi làm F5.
 
 ## Quyết định đã chốt
 
@@ -30,14 +30,13 @@ _Cập nhật lần cuối: 2026-10-10_
 | 2026-10-07 | Flowchart dùng cú pháp Mermaid mới nhất | PM |
 | 2026-10-07 | Chốt PRD, chuyển sang Thiết kế; thiết kế phải xét edge cases | PM |
 | 2026-10-07 | Kiểm thử gồm test tự động (Vitest) và test giao diện thủ công theo bảng test case | PM |
+| 2026-10-10 | Điểm mở #1 (xoá môn đang sửa → xoá trắng form) và #2 (thêm nút "Huỷ") đồng ý theo đề xuất, áp dụng trong F4 | PM |
 | 2026-10-10 | Chuyển sang Lập trình, làm F2 (điểm #4: làm tròn 8.45 → 8.5 rồi mới quy đổi, đã áp dụng trong F2) | PM |
 
 ## Điểm còn mở (chờ PM chốt)
 
 | # | Tình huống | Đề xuất |
 |---|-----------|---------|
-| 1 | Xoá đúng môn đang được sửa trên form | Xoá trắng form, nút trở lại "Thêm môn" |
-| 2 | Đang sửa mà muốn bỏ, không sửa nữa | Thêm nút "Huỷ" (PRD chưa có) |
 | 3 | Bấm "Xoá tất cả" khi danh sách đang rỗng | Làm mờ nút, không bấm được |
 | 4 | Nhập điểm dạng 8.45 | Làm tròn thành 8.5 rồi mới quy đổi, nên ra điểm A (đã áp dụng ở F1/F2) |
 | 5 | Trùng tên môn (học lại) | Cho phép trùng, tính cả hai vào GPA |
@@ -46,4 +45,4 @@ _Cập nhật lần cuối: 2026-10-10_
 
 ## Thay đổi so với PRD ban đầu
 
-Chưa có thay đổi nào. Nếu PM chốt điểm #2 (nút "Huỷ") thì đó sẽ là phần bổ sung so với PRD.
+Đã thêm nút "Huỷ" khi đang sửa môn (điểm mở #2, PM đã đồng ý). PRD §F4 chưa ghi nút này.

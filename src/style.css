@@ -10,12 +10,20 @@ input { width: 100%; padding: 8px; font-size: 1rem; border: 1px solid #9ca3af; b
 input[aria-invalid] { border-color: #dc2626; }
 .error { color: #dc2626; font-size: 0.875rem; margin: 4px 0 0; min-height: 1.2em; }
 button { padding: 10px 16px; font-size: 1rem; border: 0; border-radius: 4px; background: #2563eb; color: #fff; cursor: pointer; }
-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+table { width: 100%; min-width: 520px; border-collapse: collapse; table-layout: fixed; }
 th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; overflow-wrap: anywhere; }
 th:nth-child(n+2) { width: 3.75rem; }
+th:last-child { width: 8rem; }
 [hidden] { display: none; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 8px; margin: 0; }
 .stats div { background: #f5f6f8; border-radius: 6px; padding: 8px; }
 .stats dt { font-size: 0.8rem; color: #4b5563; }
 .stats dd { margin: 2px 0 0; font-size: 1.25rem; font-weight: 700; }
 #summary-hint { margin: 12px 0 0; color: #4b5563; }
+.table-wrap { overflow-x: auto; }
+.actions { display: flex; gap: 8px; }
+button.secondary { background: #e5e7eb; color: #1f2937; }
+td button { padding: 4px 10px; font-size: 0.875rem; }
+td button.danger { background: #dc2626; }
+td button + button { margin-left: 4px; }
+tr.editing td { background: #fef9c3; }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateName, validateCredits, validateScore, validateCourse, convertScore, calculateGpa, classify } from '../src/validation.js';
+import { validateName, validateCredits, validateScore, validateCourse, convertScore, calculateGpa, classify, updateCourse, removeCourse } from '../src/validation.js';
 
 describe('tên môn (EC-01→04)', () => {
   it('EC-01 chỉ dấu cách → lỗi', () => {
@@ -137,4 +137,36 @@ describe('xếp loại (F3)', () => {
     [2.49, 'Trung bình'], [2.0, 'Trung bình'],
     [1.99, 'Yếu'], [0, 'Yếu'],
   ])('GPA %s → %s', (gpa, label) => expect(classify(gpa)).toBe(label));
+});
+
+describe('sửa / xoá môn (F4, EC-29, EC-32)', () => {
+  const list = () => [
+    { id: 1, name: 'A', credits: 3, score: 8 },
+    { id: 2, name: 'B', credits: 2, score: 7 },
+    { id: 3, name: 'C', credits: 4, score: 6 },
+  ];
+  it('sửa theo id, giữ nguyên vị trí và các môn khác', () => {
+    const r = updateCourse(list(), 2, { name: 'B2', credits: 5, score: 9 });
+    expect(r.map((c) => c.id)).toEqual([1, 2, 3]);
+    expect(r[1]).toEqual({ id: 2, name: 'B2', credits: 5, score: 9 });
+    expect(r[0]).toEqual(list()[0]);
+  });
+  it('không làm thay đổi danh sách gốc', () => {
+    const orig = list();
+    updateCourse(orig, 1, { name: 'X', credits: 1, score: 1 });
+    removeCourse(orig, 1);
+    expect(orig).toEqual(list());
+  });
+  it('xoá theo id, không theo số thứ tự', () => {
+    expect(removeCourse(list(), 2).map((c) => c.id)).toEqual([1, 3]);
+  });
+  it('id không tồn tại → không đổi gì', () => {
+    expect(removeCourse(list(), 99)).toEqual(list());
+    expect(updateCourse(list(), 99, { name: 'X' })).toEqual(list());
+  });
+  it('GPA tính lại đúng sau khi sửa và xoá', () => {
+    const edited = updateCourse([{ id: 1, name: 'A', credits: 3, score: 5 }], 1, { score: 9 });
+    expect(calculateGpa(edited).gpa4).toBe(4);
+    expect(calculateGpa(removeCourse(edited, 1)).gpa4).toBeNull();
+  });
 });

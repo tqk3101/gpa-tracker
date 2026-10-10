@@ -100,3 +100,12 @@ export function calculateGpa(courses) {
   const gpa10 = divideRound2(sum10, 10 * totalCredits);
   return { totalCourses, totalCredits, passedCredits, gpa4, gpa10, classification: classify(gpa4) };
 }
+
+// Sửa/xoá theo mã riêng (id), không theo vị trí dòng. Trả về danh sách mới, giữ nguyên thứ tự.
+export function updateCourse(courses, id, values) {
+  return courses.map((c) => (c.id === id ? { ...c, ...values } : c));
+}
+
+export function removeCourse(courses, id) {
+  return courses.filter((c) => c.id !== id);
+}

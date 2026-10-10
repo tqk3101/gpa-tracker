@@ -1,5 +1,5 @@
 import './style.css';
-import { validateCourse } from './validation.js';
+import { validateCourse, convertScore } from './validation.js';
 
 const FIELDS = ['name', 'credits', 'score'];
 const form = document.getElementById('course-form');
@@ -20,7 +20,9 @@ function render() {
   tbody.replaceChildren(
     ...courses.map((c) => {
       const tr = document.createElement('tr');
-      for (const text of [c.name, c.credits, String(c.score).replace('.', ',')]) {
+      const { letter, point4 } = convertScore(c.score);
+      const fmt = (n) => n.toFixed(1).replace('.', ',');
+      for (const text of [c.name, c.credits, fmt(c.score), letter, fmt(point4)]) {
         const td = document.createElement('td');
         td.textContent = text;
         tr.append(td);

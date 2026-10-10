@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateName, validateCredits, validateScore, validateCourse } from '../src/validation.js';
+import { validateName, validateCredits, validateScore, validateCourse, convertScore } from '../src/validation.js';
 
 describe('tên môn (EC-01→04)', () => {
   it('EC-01 chỉ dấu cách → lỗi', () => {
@@ -59,5 +59,28 @@ describe('validateCourse (EC-18)', () => {
     const r = validateCourse({ name: '', credits: '0', score: 'x' });
     expect(r.ok).toBe(false);
     expect(Object.keys(r.errors)).toEqual(['name', 'credits', 'score']);
+  });
+});
+
+describe('quy đổi điểm (F2, EC-39)', () => {
+  it.each([
+    [10, 'A', 4.0], [8.5, 'A', 4.0],
+    [8.4, 'B+', 3.5], [8.0, 'B+', 3.5],
+    [7.9, 'B', 3.0], [7.0, 'B', 3.0],
+    [6.9, 'C+', 2.5], [6.5, 'C+', 2.5],
+    [6.4, 'C', 2.0], [5.5, 'C', 2.0],
+    [5.4, 'D+', 1.5], [5.0, 'D+', 1.5],
+    [4.9, 'D', 1.0], [4.0, 'D', 1.0],
+    [3.9, 'F', 0.0], [0, 'F', 0.0],
+  ])('điểm %s → %s (%s)', (score, letter, point4) =>
+    expect(convertScore(score)).toEqual({ letter, point4 }));
+
+  it('nhập 8,45 → làm tròn 8,5 → A', () => {
+    const { value } = validateScore('8,45');
+    expect(convertScore(value).letter).toBe('A');
+  });
+  it('nhập 3,95 → làm tròn 4,0 → D', () => {
+    const { value } = validateScore('3.95');
+    expect(convertScore(value)).toEqual({ letter: 'D', point4: 1.0 });
   });
 });

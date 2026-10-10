@@ -49,3 +49,19 @@ export function validateCourse({ name, credits, score }) {
     values: { name: results.name.value, credits: results.credits.value, score: results.score.value },
   };
 }
+
+// Bảng quy đổi PRD §F2, xếp từ cao xuống thấp. Điểm đầu vào đã làm tròn 1 chữ số.
+const GRADE_BANDS = [
+  { min: 8.5, letter: 'A', point4: 4.0 },
+  { min: 8.0, letter: 'B+', point4: 3.5 },
+  { min: 7.0, letter: 'B', point4: 3.0 },
+  { min: 6.5, letter: 'C+', point4: 2.5 },
+  { min: 5.5, letter: 'C', point4: 2.0 },
+  { min: 5.0, letter: 'D+', point4: 1.5 },
+  { min: 4.0, letter: 'D', point4: 1.0 },
+];
+
+export function convertScore(score10) {
+  const band = GRADE_BANDS.find((b) => score10 >= b.min);
+  return band ? { letter: band.letter, point4: band.point4 } : { letter: 'F', point4: 0.0 };
+}

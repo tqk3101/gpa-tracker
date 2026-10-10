@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Only F1 (add course) is implemented so far; see PRD §4 for status. Code is in `src/` (pure logic in `src/validation.js`), tests in `tests/`. `PRD.md` is the source of truth for requirements; its section 4 table tracks feature status (F1–F5). When you finish a feature, change its `[ ] Chưa làm` marker in that table.
+F1 (add course) and F2 (grade conversion) are implemented so far; see PRD §4 for status. Code is in `src/` (pure logic in `src/validation.js`), tests in `tests/`. `PRD.md` is the source of truth for requirements; its section 4 table tracks feature status (F1–F5). When you finish a feature, change its `[ ] Chưa làm` marker in that table.
 
 ## Process (Waterfall)
 

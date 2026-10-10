@@ -12,5 +12,5 @@ input[aria-invalid] { border-color: #dc2626; }
 button { padding: 10px 16px; font-size: 1rem; border: 0; border-radius: 4px; background: #2563eb; color: #fff; cursor: pointer; }
 table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; overflow-wrap: anywhere; }
-th:nth-child(2), th:nth-child(3) { width: 6.5rem; }
+th:nth-child(n+2) { width: 3.75rem; }
 [hidden] { display: none; }

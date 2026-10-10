@@ -8,6 +8,7 @@
   <body>
     <main>
       <h1>GPA Tracker</h1>
+      <p id="storage-warning" class="warning" role="alert" hidden></p>
 
       <form id="course-form" novalidate>
         <div class="field">
@@ -45,7 +46,10 @@
       </section>
 
       <section>
-        <h2>Danh sách môn học</h2>
+        <div class="list-head">
+          <h2>Danh sách môn học</h2>
+          <button type="button" id="clear-btn" class="danger" disabled>Xoá tất cả</button>
+        </div>
         <p id="empty-hint">Hãy thêm môn học đầu tiên</p>
         <div class="table-wrap">
         <table>

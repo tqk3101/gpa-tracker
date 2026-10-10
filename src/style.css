@@ -27,3 +27,8 @@ td button { padding: 4px 10px; font-size: 0.875rem; }
 td button.danger { background: #dc2626; }
 td button + button { margin-left: 4px; }
 tr.editing td { background: #fef9c3; }
+.warning { background: #fef3c7; color: #92400e; border-radius: 6px; padding: 8px 12px; margin: 0 0 16px; }
+.list-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.list-head h2 { margin: 0; }
+button.danger { background: #dc2626; }
+button:disabled { opacity: 0.45; cursor: not-allowed; }

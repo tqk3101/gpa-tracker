@@ -1,4 +1,5 @@
 import './style.css';
+import { loadCourses, saveCourses } from "./storage.js";
 import { validateCourse, convertScore, calculateGpa, updateCourse, removeCourse } from './validation.js';
 
 const FIELDS = ['name', 'credits', 'score'];
@@ -16,9 +17,33 @@ const summaryHint = document.getElementById("summary-hint");
 const submitBtn = document.getElementById("submit-btn");
 const cancelBtn = document.getElementById("cancel-btn");
 
-let courses = [];
+const clearBtn = document.getElementById("clear-btn");
+const storageWarning = document.getElementById("storage-warning");
+
+let storage = null;
+try {
+  storage = window.localStorage;
+} catch {
+  storage = null;
+}
+const loaded = storage ? loadCourses(storage) : { courses: [], available: false };
+
 let nextId = 1;
+let courses = loaded.courses.map((c) => ({ id: nextId++, ...c }));
 let editingId = null;
+
+function showStorageWarning(message) {
+  storageWarning.textContent = message ?? "";
+  storageWarning.hidden = !message;
+}
+
+// Ghi sau mỗi thay đổi (F5b). Thất bại thì giữ thay đổi trên màn hình và báo cho người dùng.
+function persist() {
+  if (!storage) return;
+  showStorageWarning(saveCourses(storage, courses) ? null : "Không lưu được dữ liệu");
+}
+
+if (!loaded.available) showStorageWarning("Dữ liệu sẽ không được lưu khi tải lại trang");
 
 function setError(field, message) {
   errorEls[field].textContent = message ?? '';
@@ -53,6 +78,7 @@ function deleteCourse(course) {
   if (!window.confirm(`Xoá môn "${course.name}"?`)) return;
   if (course.id === editingId) exitEditMode();
   courses = removeCourse(courses, course.id);
+  persist();
   render();
 }
 
@@ -98,6 +124,7 @@ function render() {
     }),
   );
   emptyHint.hidden = courses.length > 0;
+  clearBtn.disabled = courses.length === 0;
 }
 
 form.addEventListener('submit', (event) => {
@@ -119,8 +146,17 @@ form.addEventListener('submit', (event) => {
     courses.push({ id: nextId++, ...result.values });
     form.reset();
   }
+  persist();
   render();
   inputs.name.focus();
+});
+
+clearBtn.addEventListener("click", () => {
+  if (courses.length === 0 || !window.confirm("Xoá toàn bộ môn học?")) return;
+  exitEditMode();
+  courses = [];
+  persist();
+  render();
 });
 
 cancelBtn.addEventListener("click", () => {

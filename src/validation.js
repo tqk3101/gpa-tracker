@@ -65,3 +65,38 @@ export function convertScore(score10) {
   const band = GRADE_BANDS.find((b) => score10 >= b.min);
   return band ? { letter: band.letter, point4: band.point4 } : { letter: 'F', point4: 0.0 };
 }
+
+// a/b làm tròn half-up đến 2 chữ số thập phân, dùng số nguyên để tránh sai số số thực.
+function divideRound2(num, den) {
+  return Math.floor((200 * num + den) / (2 * den)) / 100;
+}
+
+export function classify(gpa4) {
+  if (gpa4 >= 3.6) return 'Xuất sắc';
+  if (gpa4 >= 3.2) return 'Giỏi';
+  if (gpa4 >= 2.5) return 'Khá';
+  if (gpa4 >= 2.0) return 'Trung bình';
+  return 'Yếu';
+}
+
+// PRD §F3. Danh sách rỗng trả về null cho GPA và xếp loại (giao diện hiển thị "—").
+// Điểm hệ 10 có 1 chữ số thập phân nên nhân 10 để tính trên số nguyên; điểm hệ 4 là bội của 0.5.
+export function calculateGpa(courses) {
+  const totalCourses = courses.length;
+  if (totalCourses === 0) {
+    return { totalCourses: 0, totalCredits: 0, passedCredits: 0, gpa4: null, gpa10: null, classification: null };
+  }
+  let totalCredits = 0;
+  let passedCredits = 0;
+  let sum4 = 0;
+  let sum10 = 0;
+  for (const { credits, score } of courses) {
+    totalCredits += credits;
+    if (score >= 4.0) passedCredits += credits;
+    sum4 += Math.round(convertScore(score).point4 * 2) * credits;
+    sum10 += Math.round(score * 10) * credits;
+  }
+  const gpa4 = divideRound2(sum4, 2 * totalCredits);
+  const gpa10 = divideRound2(sum10, 10 * totalCredits);
+  return { totalCourses, totalCredits, passedCredits, gpa4, gpa10, classification: classify(gpa4) };
+}

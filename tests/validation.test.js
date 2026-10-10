@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateName, validateCredits, validateScore, validateCourse, convertScore } from '../src/validation.js';
+import { validateName, validateCredits, validateScore, validateCourse, convertScore, calculateGpa, classify } from '../src/validation.js';
 
 describe('tên môn (EC-01→04)', () => {
   it('EC-01 chỉ dấu cách → lỗi', () => {
@@ -83,4 +83,58 @@ describe('quy đổi điểm (F2, EC-39)', () => {
     const { value } = validateScore('3.95');
     expect(convertScore(value)).toEqual({ letter: 'D', point4: 1.0 });
   });
+});
+
+describe('tính GPA (F3)', () => {
+  const c = (credits, score) => ({ credits, score });
+
+  it('chưa có môn → null (EC-21)', () => {
+    expect(calculateGpa([])).toEqual({
+      totalCourses: 0, totalCredits: 0, passedCredits: 0, gpa4: null, gpa10: null, classification: null,
+    });
+  });
+  it('1 môn → GPA đúng điểm môn đó (EC-26)', () => {
+    expect(calculateGpa([c(3, 8.5)])).toMatchObject({ gpa4: 4, gpa10: 8.5, classification: 'Xuất sắc' });
+  });
+  it('trung bình có trọng số tín chỉ', () => {
+    // (4.0×3 + 3.0×2) / 5 = 3.6 ; (9×3 + 7×2) / 5 = 8.2
+    expect(calculateGpa([c(3, 9), c(2, 7)])).toMatchObject({
+      totalCourses: 2, totalCredits: 5, passedCredits: 5, gpa4: 3.6, gpa10: 8.2, classification: 'Xuất sắc',
+    });
+  });
+  it('môn F tính vào tổng tín chỉ và GPA nhưng không vào tín chỉ đạt (EC-23)', () => {
+    expect(calculateGpa([c(3, 8.5), c(3, 3.9)])).toMatchObject({
+      totalCredits: 6, passedCredits: 3, gpa4: 2, gpa10: 6.2, classification: 'Trung bình',
+    });
+  });
+  it('tất cả môn F → 0, Yếu, tín chỉ đạt 0 (EC-22)', () => {
+    expect(calculateGpa([c(2, 0), c(3, 3.9)])).toMatchObject({
+      passedCredits: 0, gpa4: 0, classification: 'Yếu',
+    });
+  });
+  it('điểm đúng 4.0 tính là đạt', () => {
+    expect(calculateGpa([c(3, 4.0)]).passedCredits).toBe(3);
+  });
+  it('làm tròn 2 chữ số, xếp loại theo GPA đã làm tròn (EC-24)', () => {
+    // (3.5×21 + 4.0×5) / 26 = 3.5961… → 3.6 → Xuất sắc
+    const r = calculateGpa([c(7, 8.0), c(7, 8.0), c(7, 8.0), c(5, 9)]);
+    expect(r.gpa4).toBe(3.6);
+    expect(r.classification).toBe('Xuất sắc');
+  });
+  it('làm tròn half-up GPA hệ 10: 8.005 → 8.01', () => {
+    // (8.0×199 + 8.1×1) / 200 = 8.0005 → 8.00 ; (8.0×1 + 8.1×1)/2 = 8.05
+    expect(calculateGpa([c(1, 8.0), c(1, 8.1)]).gpa10).toBe(8.05);
+    expect(calculateGpa([c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0),
+      c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(10, 8.0), c(9, 8.0), c(1, 8.1)]).gpa10).toBe(8.0);
+  });
+});
+
+describe('xếp loại (F3)', () => {
+  it.each([
+    [4.0, 'Xuất sắc'], [3.6, 'Xuất sắc'],
+    [3.59, 'Giỏi'], [3.2, 'Giỏi'],
+    [3.19, 'Khá'], [2.5, 'Khá'],
+    [2.49, 'Trung bình'], [2.0, 'Trung bình'],
+    [1.99, 'Yếu'], [0, 'Yếu'],
+  ])('GPA %s → %s', (gpa, label) => expect(classify(gpa)).toBe(label));
 });

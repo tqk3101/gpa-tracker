@@ -8,19 +8,19 @@ _Cập nhật lần cuối: 2026-10-10_
 |-----------|-----------|
 | 1. Yêu cầu (PRD) | Xong |
 | 2. Thiết kế luồng nghiệp vụ | Xong (44 tình huống đặc biệt); 7 điểm còn mở bên dưới chưa được PM chốt chính thức |
-| 3. Lập trình và test tự động | **Đang làm**: F1 và F2 xong; còn F3, F4, F5 |
+| 3. Lập trình và test tự động | **Đang làm**: F1, F2, F3 xong; còn F4, F5 |
 | 4. Kiểm thử giao diện (E2E) | Chưa bắt đầu |
 | 5. Triển khai Vercel | Chưa bắt đầu |
 
 | Chức năng | Trạng thái |
 |-----------|-----------|
 | F1 Thêm môn học | Xong, đã merge vào `main` |
-| F2 Quy đổi điểm | Xong code + test (56 test đạt), nằm ở nhánh `feature/f2-convert-grade`, chờ merge |
-| F3 Tính GPA | Chưa làm |
+| F2 Quy đổi điểm | Xong, đã merge vào `main` |
+| F3 Tính GPA | Xong code + test (74 test đạt), nằm ở nhánh `feature/f3-calculate-gpa`, chờ PM xem giao diện |
 | F4 Sửa/xoá môn | Chưa làm |
 | F5 Lưu dữ liệu | Chưa làm |
 
-**Việc tiếp theo:** PM xem F2 trên giao diện (`npm run dev`), duyệt rồi merge; sau đó làm F3. Nên chốt các điểm còn mở trước khi làm F4 và F5.
+**Việc tiếp theo:** PM xem F3 trên giao diện (`npm run dev`), duyệt rồi merge; sau đó làm F4. Nên chốt các điểm còn mở trước khi làm F4 và F5.
 
 ## Quyết định đã chốt
 

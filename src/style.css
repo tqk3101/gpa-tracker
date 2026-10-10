@@ -14,3 +14,8 @@ table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; overflow-wrap: anywhere; }
 th:nth-child(n+2) { width: 3.75rem; }
 [hidden] { display: none; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 8px; margin: 0; }
+.stats div { background: #f5f6f8; border-radius: 6px; padding: 8px; }
+.stats dt { font-size: 0.8rem; color: #4b5563; }
+.stats dd { margin: 2px 0 0; font-size: 1.25rem; font-weight: 700; }
+#summary-hint { margin: 12px 0 0; color: #4b5563; }

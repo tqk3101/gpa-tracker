@@ -170,3 +170,24 @@ describe('sửa / xoá môn (F4, EC-29, EC-32)', () => {
     expect(calculateGpa(removeCourse(edited, 1)).gpa4).toBeNull();
   });
 });
+
+describe('Chữ đầu tên môn tự viết hoa', () => {
+  it('viết hoa chữ đầu, kể cả chữ có dấu', () => {
+    expect(validateName('toán rời rạc').value).toBe('Toán rời rạc');
+    expect(validateName(' đại số').value).toBe('Đại số');
+  });
+});
+
+describe('Tên môn không được trùng (EC-05)', () => {
+  const existing = [{ id: 1, name: 'Toán', credits: 3, score: 8 }];
+  const input = (name) => ({ name, credits: '3', score: '8' });
+  it('báo lỗi khi trùng, không phân biệt hoa/thường và khoảng trắng', () => {
+    expect(validateCourse(input(' toán '), existing).errors.name).toBe('Môn học này đã tồn tại');
+  });
+  it('cho phép "Toán 2"', () => {
+    expect(validateCourse(input('Toán 2'), existing).ok).toBe(true);
+  });
+  it('khi sửa, giữ nguyên tên của chính môn đó vẫn hợp lệ', () => {
+    expect(validateCourse(input('Toán'), existing, 1).ok).toBe(true);
+  });
+});

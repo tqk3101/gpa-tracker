@@ -1,6 +1,6 @@
 # Trạng thái dự án – GPA Tracker
 
-_Cập nhật lần cuối: 2026-10-10_
+_Cập nhật lần cuối: 2026-10-12_
 
 ## Trạng thái hiện tại
 
@@ -18,7 +18,7 @@ _Cập nhật lần cuối: 2026-10-10_
 | F2 Quy đổi điểm | Xong, đã merge vào `main` |
 | F3 Tính GPA | Xong, đã merge vào `main` |
 | F4 Sửa/xoá môn | Xong, đã merge vào `main` |
-| F5 Lưu dữ liệu | Xong code + test (94 test đạt), nằm ở nhánh `feature/f5-save-data`, chờ PM xem giao diện |
+| F5 Lưu dữ liệu | Xong, đã merge vào `main` (94 test đạt) |
 
 **Việc tiếp theo:** PM test theo `docs/test-cases.md`, điền cột "Kết quả thực tế"; có lỗi thì báo để sửa. Xong thì sang giai đoạn 5 (Vercel).
 
@@ -32,6 +32,7 @@ _Cập nhật lần cuối: 2026-10-10_
 | 2026-10-07 | Kiểm thử gồm test tự động (Vitest) và test giao diện thủ công theo bảng test case | PM |
 | 2026-10-10 | Điểm mở #1 (xoá môn đang sửa → xoá trắng form) và #2 (thêm nút "Huỷ") đồng ý theo đề xuất, áp dụng trong F4 | PM |
 | 2026-10-10 | Điểm mở #3, #6, #7 đồng ý theo đề xuất, áp dụng trong F5 | PM |
+| 2026-10-12 | Điểm mở #5: KHÔNG cho trùng tên môn (không phân biệt hoa/thường), báo "Môn học này đã tồn tại" dưới ô tên; chữ đầu tên môn tự viết hoa; môn giống nhau thì thêm số (Toán, Toán 2). Đã áp dụng vào code, PRD, flowchart, test case | PM |
 | 2026-10-10 | Chuyển sang Lập trình, làm F2 (điểm #4: làm tròn 8.45 → 8.5 rồi mới quy đổi, đã áp dụng trong F2) | PM |
 
 ## Điểm còn mở (chờ PM chốt)
@@ -39,8 +40,9 @@ _Cập nhật lần cuối: 2026-10-10_
 | # | Tình huống | Đề xuất |
 |---|-----------|---------|
 | 4 | Nhập điểm dạng 8.45 | Làm tròn thành 8.5 rồi mới quy đổi, nên ra điểm A (đã áp dụng ở F1/F2) |
-| 5 | Trùng tên môn (học lại) | Cho phép trùng, tính cả hai vào GPA |
 
 ## Thay đổi so với PRD ban đầu
 
 Đã thêm nút "Huỷ" khi đang sửa môn (điểm mở #2, PM đã đồng ý). PRD §F4 chưa ghi nút này.
+
+Đã thêm quy tắc không trùng tên môn vào PRD §F1 (điểm mở #5, PM chốt 2026-10-12).

@@ -260,7 +260,7 @@ Những tình huống dễ làm sai. Cột "Cách xử lý" là thiết kế s�
 | EC-02 | Có dấu cách thừa 2 đầu | `"  Toán  "` | Lưu thành `"Toán"` |
 | EC-03 | Độ dài ở ranh giới | 100 ký tự / 101 ký tự | 100: hợp lệ. 101: lỗi "Tên môn tối đa 100 ký tự". Chữ có dấu (ví dụ "ệ") tính là 1 ký tự |
 | EC-04 | Tên chứa ký tự đặc biệt hoặc mã HTML | `<b>Toán</b>`, `C++ & Java` | Hiển thị nguyên văn như chữ thường, không bao giờ chạy như mã |
-| EC-05 | Trùng tên với môn đã có (ví dụ học lại) | Thêm "Toán" lần 2 | **Điểm mở #5** |
+| EC-05 | Trùng tên với môn đã có (ví dụ học lại) | Thêm "Toán" lần 2 | Lỗi dưới ô tên: "Môn học này đã tồn tại". So sánh không phân biệt hoa/thường; "Toán 2" hợp lệ; khi sửa, giữ nguyên tên của chính môn đó vẫn được (PM chốt 2026-10-12) |
 
 ### F1 – Số tín chỉ
 
@@ -346,6 +346,6 @@ Những tình huống dễ làm sai. Cột "Cách xử lý" là thiết kế s�
 | 2 | Đang sửa mà muốn bỏ, không sửa nữa | Thêm nút "Huỷ" cạnh nút "Lưu" (PRD chưa có) | Nếu không có, người dùng bị kẹt ở chế độ sửa |
 | 3 | Bấm "Xoá tất cả" khi danh sách đang rỗng | Làm mờ nút, không bấm được | Tránh hỏi xác nhận vô nghĩa |
 | 4 | Nhập điểm dạng 8.45 | Làm tròn thành 8.5 rồi mới quy đổi, nên ra điểm A | Đúng quy tắc làm tròn trong PRD |
-| 5 | Trùng tên môn (học lại, học cải thiện) | Cho phép trùng, cả 2 lần đều được tính vào GPA, không cảnh báo | Quy định học lại mỗi trường một khác; PRD không có. Nếu cần "chỉ tính lần điểm cao nhất" thì là tính năng mới |
+| 5 | Trùng tên môn (học lại, học cải thiện) | **PM chốt: KHÔNG cho trùng**, báo lỗi dưới ô tên; môn giống nhau thì thêm số (Toán, Toán 2) | Thực tế không có môn trùng tên |
 | 6 | Dữ liệu lưu hỏng một phần | Giữ các môn còn hợp lệ, bỏ các môn hỏng | Tránh mất toàn bộ dữ liệu chỉ vì 1 môn lỗi. PRD chỉ nói "khởi tạo danh sách rỗng" cho trường hợp hỏng hẳn |
 | 7 | Mở 2 tab cùng lúc | Chấp nhận: tab nào lưu sau thì ghi đè (không đồng bộ giữa các tab) | Ít gặp; đồng bộ nhiều tab tương tự "đồng bộ nhiều máy" – ngoài phạm vi |

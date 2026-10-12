@@ -4,7 +4,9 @@ export function validateName(raw) {
   const value = String(raw ?? '').trim().normalize('NFC');
   if (value === '') return { error: 'Vui lòng nhập tên môn' };
   if ([...value].length > NAME_MAX) return { error: `Tên môn tối đa ${NAME_MAX} ký tự` };
-  return { value };
+  // Chữ đầu tiên tự động viết hoa.
+  const [first, ...rest] = [...value];
+  return { value: first.toLocaleUpperCase('vi') + rest.join('') };
 }
 
 export function validateCredits(raw) {
@@ -35,9 +37,19 @@ export function validateScore(raw) {
 }
 
 // Kiểm tra cả 3 ô cùng lúc. Trả về { ok, values } hoặc { ok: false, errors } theo khoá name/credits/score.
-export function validateCourse({ name, credits, score }) {
+// Tên môn không được trùng (không phân biệt hoa/thường). existing = danh sách môn hiện có, excludeId = môn đang sửa.
+export function isDuplicateName(existing, name, excludeId = null) {
+  const key = name.toLocaleLowerCase('vi');
+  return existing.some((c) => c.id !== excludeId && c.name.toLocaleLowerCase('vi') === key);
+}
+
+export function validateCourse({ name, credits, score }, existing = [], excludeId = null) {
+  const nameResult = validateName(name);
+  if (nameResult.value !== undefined && isDuplicateName(existing, nameResult.value, excludeId)) {
+    nameResult.error = 'Môn học này đã tồn tại';
+  }
   const results = {
-    name: validateName(name),
+    name: nameResult,
     credits: validateCredits(credits),
     score: validateScore(score),
   };

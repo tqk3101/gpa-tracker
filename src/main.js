@@ -133,7 +133,7 @@ form.addEventListener('submit', (event) => {
     name: inputs.name.value,
     credits: inputs.credits.value,
     score: inputs.score.value,
-  });
+  }, courses, editingId);
   for (const f of FIELDS) setError(f, result.errors?.[f]);
   if (!result.ok) {
     inputs[FIELDS.find((f) => result.errors[f])].focus();

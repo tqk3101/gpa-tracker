@@ -38,7 +38,8 @@ Giai đoạn 3: PM kiểm thử trên giao diện. Cột "Kết quả thực t�
 | TC-23 | Nhiều ô sai cùng lúc (EC-18) | Để trống Tên, TC `0`, Điểm `abc`, nhấn "Thêm môn" | như bên | Cả 3 lỗi hiện cùng lúc dưới từng ô; con trỏ nhảy về ô Tên | |
 | TC-24 | Lỗi biến mất khi gõ (EC-19) | Gây lỗi ở ô Tên, rồi gõ vào ô Tên | – | Lỗi của ô Tên biến mất ngay khi gõ; lỗi các ô khác giữ nguyên | |
 | TC-25 | Nhấn Thêm 2 lần liên tiếp (EC-20) | Nhập hợp lệ, nhấn Enter hai lần nhanh | Tên `Toán`/3/8 | Chỉ có 1 môn; lần nhấn thứ 2 báo lỗi vì form trống, không thêm môn trùng | |
-| TC-26 | Trùng tên môn (EC-05) | Thêm `Toán` hai lần với điểm khác nhau | `Toán`/3/5 và `Toán`/3/8 | Cả hai dòng đều có trong bảng, không cảnh báo, cả hai tính vào GPA | |
+| TC-26 | Trùng tên môn (EC-05) | Thêm `Toán` hai lần; thử thêm `toán `; rồi thêm `Toán 2` | `Toán`/3/5, rồi `Toán`/3/8, `toán `/3/8, `Toán 2`/3/8 | Lần trùng báo lỗi dưới ô tên "Môn học này đã tồn tại" và không thêm; `Toán 2` thêm được. Khi sửa môn `Toán` và giữ nguyên tên thì lưu được | |
+| TC-26b | Tự viết hoa chữ đầu | Nhập tên bắt đầu bằng chữ thường, nhấn "Thêm môn" | `toán rời rạc`/3/8 | Môn hiển thị là `Toán rời rạc` (chữ đầu viết hoa) | |
 
 ## 2. F2 – Quy đổi điểm
 

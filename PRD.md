@@ -20,7 +20,7 @@ tích lũy (GPA) hệ 4 và hệ 10, cùng xếp loại học lực. Không cầ
 3. Hệ thống kiểm tra dữ liệu; hợp lệ thì thêm vào bảng, xoá trắng form, đặt con trỏ vào ô Tên môn.
 
 **Validation Rules:**
-- Tên môn: không để trống, tối đa 100 ký tự (bỏ khoảng trắng 2 đầu).
+- Tên môn: không để trống, tối đa 100 ký tự (bỏ khoảng trắng 2 đầu), chữ đầu tiên tự động viết hoa; không được trùng tên môn đã có (không phân biệt hoa/thường), báo "Môn học này đã tồn tại"; môn giống nhau thì thêm số phía sau (ví dụ: Toán, Toán 2).
 - Số tín chỉ: số nguyên từ 1 đến 10.
 - Điểm hệ 10: số từ 0 đến 10, chấp nhận cả dấu phẩy (8,5) và dấu chấm (8.5);
   làm tròn 1 chữ số thập phân.

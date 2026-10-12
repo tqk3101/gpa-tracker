@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-F1 (add course) and F2 (grade conversion) are implemented so far; see PRD §4 for status. Code is in `src/` (pure logic in `src/validation.js`), tests in `tests/`. `PRD.md` is the source of truth for requirements; its section 4 table tracks feature status (F1–F5). When you finish a feature, change its `[ ] Chưa làm` marker in that table.
+All features F1–F5 are implemented and merged into `main` (94 automated tests pass). The project is in the manual E2E phase (88 test cases in `docs/test-cases.md`, waiting for the PM to test); the Vercel deploy has not started. See `STATUS.md` for the current phase and open questions. Code is in `src/` (pure logic in `src/validation.js`, persistence in `src/storage.js`, UI in `src/main.js`), tests in `tests/`. `PRD.md` is the source of truth for requirements; its section 4 table tracks feature status (F1–F5). When you finish a feature, change its `[ ] Chưa làm` marker in that table.
 
 ## Process (Waterfall)
 
@@ -19,7 +19,7 @@ Phases run in order, and each phase needs the PM's sign-off before the next one 
 2. **Implement**: write the code and the automated tests (Vitest), then run the tests yourself and fix any failures before reporting back.
 3. **E2E (manual)**: write a test-case table in `docs/test-cases.md` (ID, chức năng, bước thực hiện, dữ liệu, kết quả mong đợi, kết quả thực tế) so the PM can test through the UI.
 
-## Stack (planned, per PRD §3)
+## Stack (per PRD §3)
 
 - Vite with plain HTML/CSS/JavaScript. No framework, no TypeScript, no backend, no database.
 - Vitest for unit tests.
@@ -49,5 +49,8 @@ Custom slash commands live in `.claude/commands/`: `/git-branch`, `/commit`, `/m
 
 - `PRD.md`: product requirements and the feature status table
 - `PLAN.md`: Waterfall phase plan; `STATUS.md`: current status, decisions, open questions, changes vs. the PRD (keep it updated at each phase change or decision)
-- `docs/`: flowcharts (`flowcharts.md`) and the manual test cases
+- `docs/`: flowcharts (`flowcharts.md`) and the manual test cases (`test-cases.md`)
+- `src/`: app code (`main.js`, `validation.js`, `storage.js`, `style.css`); `index.html` is the entry page
+- `tests/`: Vitest unit tests
+- `package.json`, `package-lock.json`: dependencies and npm scripts
 - `.claude/commands/`: custom slash commands

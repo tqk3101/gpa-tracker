@@ -1,6 +1,6 @@
 # Trạng thái dự án – GPA Tracker
 
-_Cập nhật lần cuối: 2026-10-12_
+_Cập nhật lần cuối: 2026-10-13_
 
 ## Trạng thái hiện tại
 
@@ -8,7 +8,7 @@ _Cập nhật lần cuối: 2026-10-12_
 |-----------|-----------|
 | 1. Yêu cầu (PRD) | Xong |
 | 2. Thiết kế luồng nghiệp vụ | Xong (44 tình huống đặc biệt); 7 điểm còn mở bên dưới chưa được PM chốt chính thức |
-| 3. Lập trình và test tự động | Xong (F1–F5, 94 test đạt, đã merge vào `main`) |
+| 3. Lập trình và test tự động | Xong (F1–F5, 99 test đạt; bản vá so khớp tên trùng đang chờ commit) |
 | 4. Kiểm thử giao diện (E2E) | **Đang làm**: đã viết 88 test case ở `docs/test-cases.md`, chờ PM test và điền kết quả |
 | 5. Triển khai Vercel | Chưa bắt đầu |
 
@@ -18,7 +18,7 @@ _Cập nhật lần cuối: 2026-10-12_
 | F2 Quy đổi điểm | Xong, đã merge vào `main` |
 | F3 Tính GPA | Xong, đã merge vào `main` |
 | F4 Sửa/xoá môn | Xong, đã merge vào `main` |
-| F5 Lưu dữ liệu | Xong, đã merge vào `main` (94 test đạt) |
+| F5 Lưu dữ liệu | Xong, đã merge vào `main` |
 
 **Việc tiếp theo:** PM test theo `docs/test-cases.md`, điền cột "Kết quả thực tế"; có lỗi thì báo để sửa. Xong thì sang giai đoạn 5 (Vercel).
 
@@ -46,3 +46,5 @@ _Cập nhật lần cuối: 2026-10-12_
 Đã thêm nút "Huỷ" khi đang sửa môn (điểm mở #2, PM đã đồng ý). PRD §F4 chưa ghi nút này.
 
 Đã thêm quy tắc không trùng tên môn vào PRD §F1 (điểm mở #5, PM chốt 2026-10-12).
+
+Ngày 2026-10-13: vá lỗi so khớp tên môn trùng khi tên có dấu tiếng Việt mã hoá khác kiểu (chuẩn hoá Unicode trước khi so sánh), thêm 1 test; tổng 99 test đạt. Chưa commit.

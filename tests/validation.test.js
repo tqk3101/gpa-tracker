@@ -184,6 +184,10 @@ describe('Tên môn không được trùng (EC-05)', () => {
   it('báo lỗi khi trùng, không phân biệt hoa/thường và khoảng trắng', () => {
     expect(validateCourse(input(' toán '), existing).errors.name).toBe('Môn học này đã tồn tại');
   });
+  it('nhận ra trùng dù tên đã lưu mã hoá dấu kiểu khác', () => {
+    const stored = [{ id: 1, name: 'Văn'.normalize('NFD'), credits: 3, score: 8 }];
+    expect(validateCourse(input('Văn'.normalize('NFC')), stored).errors.name).toBe('Môn học này đã tồn tại');
+  });
   it('cho phép "Toán 2"', () => {
     expect(validateCourse(input('Toán 2'), existing).ok).toBe(true);
   });

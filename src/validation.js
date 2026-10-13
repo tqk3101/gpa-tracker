@@ -39,8 +39,9 @@ export function validateScore(raw) {
 // Kiểm tra cả 3 ô cùng lúc. Trả về { ok, values } hoặc { ok: false, errors } theo khoá name/credits/score.
 // Tên môn không được trùng (không phân biệt hoa/thường). existing = danh sách môn hiện có, excludeId = môn đang sửa.
 export function isDuplicateName(existing, name, excludeId = null) {
-  const key = name.toLocaleLowerCase('vi');
-  return existing.some((c) => c.id !== excludeId && c.name.toLocaleLowerCase('vi') === key);
+  const norm = (text) => text.normalize('NFC').toLocaleLowerCase('vi');
+  const key = norm(name);
+  return existing.some((c) => c.id !== excludeId && norm(c.name) === key);
 }
 
 export function validateCourse({ name, credits, score }, existing = [], excludeId = null) {
